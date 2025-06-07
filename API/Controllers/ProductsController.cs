@@ -3,6 +3,7 @@ using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
@@ -80,6 +81,19 @@ namespace API.Controllers
             }
 
             return BadRequest("Problem deleting the product");
+        }
+
+        [HttpGet("brands")]
+
+        public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
+        {
+            return Ok(await _repo.GetBrandAsync());
+        }
+
+        [HttpGet("type")]
+        public async Task<ActionResult<IReadOnlyList<string>>> GetTypes()
+        {
+            return Ok(await _repo.GetTypesAsync());
         }
 
         private bool ProductExists(int id)
